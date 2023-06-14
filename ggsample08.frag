@@ -20,6 +20,8 @@ in vec2 tc;                                         // 補間されたテクス�
 // テクスチャ座標のサンプラ
 uniform sampler2D color;                            // カラーマップ
 
+uniform sampler2D tex; //テクスチャ―ユニット
+
 // フレームバッファに出力するデータ
 out vec4 fc;                                        // フラグメントの色
 
@@ -33,5 +35,5 @@ void main(void)
   vec4 idiff = max(dot(nn, nl), 0.0) * kdiff * ldiff;
   vec4 ispec = pow(max(dot(nn, nh), 0.0), kshi) * kspec * lspec;
 
-  fc = iamb + idiff + ispec;
+  fc = texture(tex, tc) * (iamb + idiff) + ispec;
 }
